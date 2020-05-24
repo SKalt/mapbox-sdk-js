@@ -19,6 +19,10 @@
   },
   "overrides": [
     {
+      "files": ["rollup.config.js"],
+      "parserOptions": {"sourceType": "module"}
+    },
+    {
       "files": ["test/*.js", "**/__tests__/*.js"],
       "env": {
         "jest": true,

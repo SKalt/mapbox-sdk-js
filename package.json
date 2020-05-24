@@ -15,7 +15,7 @@
     "lint-md": "remark-preset-davidtheclark",
     "lint-js": "eslint .",
     "typecheck": "tsc -p tsconfig.json",
-    "lint": "run-p --aggregate-output lint-md lint-js",
+    "lint": "run-p --aggregate-output lint-md lint-js typecheck",
     "pretest": "npm run lint",
     "test": "jest",
     "try-browser": "budo test/try-browser/try-browser.js:bundle.js -d test/try-browser -l",
@@ -23,7 +23,7 @@
     "document-classes": "documentation build 'lib/classes/*.js' --shallow --format md --config conf/classes-documentation.yml > docs/classes.md",
     "document": "run-p --aggregate-output document-services document-classes && npm run lint-md",
     "precommit": "npm run document && git add docs && lint-staged",
-    "bundle": "rollup --config ./rollup.config.js && uglifyjs umd/mapbox-sdk.js > umd/mapbox-sdk.min.js",
+    "bundle": "rollup --config ./rollup.config.js",
     "prepublishOnly": "npm run bundle"
   },
   "repository": {
@@ -82,6 +82,7 @@
     "@mapbox/fusspot": "^0.4.0",
     "@mapbox/parse-mapbox-token": "^0.2.0",
     "@mapbox/polyline": "^1.0.0",
+    "core-js": "^3.6.5",
     "eventemitter3": "^3.1.0",
     "form-data": "^3.0.0",
     "got": "^8.3.2",
@@ -89,6 +90,11 @@
     "xtend": "^4.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@rollup/plugin-babel": "^5.0.2",
+    "@rollup/plugin-commonjs": "^12.0.0",
+    "@rollup/plugin-node-resolve": "^8.0.0",
     "@types/jest": "^25.1.4",
     "@types/node": "^13.9.1",
     "base64-url": "^2.2.0",
@@ -108,9 +114,9 @@
     "npm-run-all": "^4.1.3",
     "prettier": "^1.13.7",
     "remark-preset-davidtheclark": "^0.12.0",
-    "rollup": "^0.62.0",
-    "rollup-plugin-commonjs": "^9.1.3",
-    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup": "^2.10.9",
+    "rollup-plugin-terser": "^6.0.1",
+    "terser": "^4.7.0",
     "typescript": "^3.8.3",
     "uglify-js": "^3.4.4",
     "xhr-mock": "^2.4.1"
